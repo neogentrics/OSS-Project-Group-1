@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
+
 public class FileCreationTime {
 public static FileTime getCreationTime(File file) throws IOException {
 Path p = Paths.get(file.getAbsolutePath());
@@ -20,8 +22,10 @@ FileTime fileTime=view.creationTime();
 // also available view.lastAccessTine and view.lastModifiedTime
 return fileTime;
 }
+
 public static void main(String[] args) throws IOException {
 File file = new File("C:\\CiprianAssignment.txt");
+
 System.out.println(file + " creation time :"
 + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 .format(FileCreationTime.getCreationTime(file).toM illis()));
@@ -34,6 +38,8 @@ System.out.println("Name = " + file.getName());
 System.out.println("Lenght = " + file.length() + " Bytes");
  
 File newDirectory = new File("C:\\Melisa");
+
+
 try {
 if(!newDirectory.exists())
 {
@@ -80,10 +86,6 @@ System.out.println("Rename succesful");
 } else {
 System.out.println("Rename failed");
 }
- 
- 
- 
- 
- 
+  
 }
 }
