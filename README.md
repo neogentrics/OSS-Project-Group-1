@@ -21,3 +21,29 @@ Three options:
 
 # Exit
 - Nothing, the program should just end.
+
+# Building and Running
+Requires Java 11 or newer and bash.
+
+```
+./FileManager.sh [working-directory]
+```
+
+The script compiles the Java sources into `build/` on first run (and whenever a `.java` file changes). Choosing **Login** starts `FileManager`, which authenticates against LDAP and then opens a text menu to list, view, write, create and delete files inside the working directory (default: the repo folder). Paths outside the working directory are refused.
+
+LDAP settings are read from environment variables:
+
+| Variable | Default | Notes |
+|---|---|---|
+| `LDAP_URL` | `ldaps://localhost:636` | Must be `ldaps://`; plain `ldap://` is rejected so passwords are never sent unencrypted. |
+| `LDAP_USER_DN` | `uid=%s,ou=people,dc=example,dc=com` | `%s` is replaced with the (escaped) username. |
+
+If the LDAP server uses a self-signed certificate, import it into a Java truststore and pass `-Djavax.net.ssl.trustStore=...` via `JAVA_TOOL_OPTIONS`.
+
+## Source files
+- `FileManager.sh` – main menu (Login / Create account / Exit).
+- `FileManager.java` – login prompt (up to 3 attempts), then the file menu.
+- `Ldap.java` – LDAPS authentication.
+- `FileOperations.java` – the file menu and operations.
+
+Account creation is still a TODO.
